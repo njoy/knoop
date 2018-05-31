@@ -1,8 +1,9 @@
-Node( std::map< std::string, std::string >&& attributes ):
-  attributes_( attributes )
-
+Node( std::map< std::string, std::string >&& attributes,
+       Node::core_type core = "" ):
+  attributes_( attributes ),
+  core( core )
 { }
 
-Node( ):
-  Node( std::map< std::string, std::string >() )
+Node( Node::core_type core ="" ):
+  Node( std::map< std::string, std::string >(), core )
 { }

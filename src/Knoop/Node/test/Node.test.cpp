@@ -22,8 +22,23 @@ SCENARIO( "testing the Node class" ){
         REQUIRE( "41 BBY" == knot.attribute( "born" ) );
       }
     }
+
     WHEN( "constructing a node with text" ){
+      std::string body( 
+        "Anakin became Darth Vader when seduced by the Dark Side" );
+      Node ani( std::move( attributes ), body );
     } // text node
+    
+    WHEN( "constructing a node with a double" ){
+      double body{42};
+      Node dNode( std::move( attributes ), body );
+    } // text node
+
+    WHEN( "constructing a node with a vector of doubles" ){
+      std::vector< double > body{1.1, 42.0, 84.0};
+      Node vdNode( std::move( attributes ), body );
+    } // text node
+
     GIVEN( "children nodes" ){
       Node son( {{"name", "Leia"}, 
                 {"surname", "Skywalker" }, 
@@ -34,6 +49,8 @@ SCENARIO( "testing the Node class" ){
       std::multimap< std::string, std::unique_ptr< Node > > children;
       children.emplace( "child", std::make_unique< Node >( son ) );
       children.emplace( "child", std::make_unique< Node >( daughter ) );
+
+      Node family(attributes, children);
     }
   } // GIVEN
   GIVEN( "no attributes" ){
