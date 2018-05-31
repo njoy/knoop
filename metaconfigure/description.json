@@ -574,7 +574,8 @@
   },
   "header files": [
     "src/Knoop.hpp",
-    "src/Knoop/Node.hpp"
+    "src/Knoop/Node.hpp",
+    "src/Knoop/Node/src/ctor.hpp"
   ],
   "ignore pattern": "$^",
   "implementation files": [],
@@ -583,6 +584,7 @@
   "is external project": false,
   "language": "c++",
   "name": "Knoop",
+  "standard": "c++14",
   "standards": [
     "c++98",
     "c++11",
