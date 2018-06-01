@@ -19,72 +19,20 @@ protected:
 
 public:
   #include "Knoop/Node/src/ctor.hpp"
+  #include "Knoop/Node/src/push_back.hpp"
+  #include "Knoop/Node/src/keys.hpp"
+  #include "Knoop/Node/src/values.hpp"
+  #include "Knoop/Node/src/list.hpp"
+  #include "Knoop/Node/src/insert.hpp"
+  #include "Knoop/Node/src/equalityOperator.hpp"
+  #include "Knoop/Node/src/bracketOperator.hpp"
+  #include "Knoop/Node/src/get.hpp"
 
+  // Factories
   static Node array(){
     return Node( array_type{} );
   }
-
   static Node map(){
     return Node( map_type{} );
   }
-
-  template< typename T >
-  T get(){
-    auto& leaf = std::experimental::get< leaf_type >( core );
-    return std::experimental::get<T>(leaf);
-  }
-
-  template< typename T >
-  Node& push_back( T&& t ){
-    auto& array = std::experimental::get< array_type >( core );
-    array.push_back( std::make_shared< Node >( t ) );
-
-    return *this;
-  }
-
-  template< typename T >
-  Node& insert( std::string str, T&& t ){
-    auto& map = std::experimental::get< map_type >( core );
-    map[ str ].push_back( std::make_shared< Node >( t ) );
-
-    return *this;
-  }
-
-  Node& operator[]( size_t index ){
-    auto& array = std::experimental::get< array_type >( core );
-    return *(array.at( index ));
-  }
-
-  auto operator[]( const std::string& str ){
-    auto& map = std::experimental::get< map_type >( core );
-    
-    return map[ str ] | ranges::view::indirect;
-  }
-
-  auto keys() const {
-    auto& map = std::experimental::get< map_type >( core );
-    return map | ranges::view::keys;
-  }
-
-  auto list() {
-    auto& list = std::experimental::get< array_type >( core );
-
-    return list | ranges::view::indirect;
-  }
-
-  auto values() const {
-    auto& map = std::experimental::get< map_type >( core );
-    return map 
-        | ranges::view::values
-        | ranges::view::transform( ranges::view::indirect );
-  }
-
-  template< typename T >
-  Node& operator=( T&& t ){
-    *this = Node( t );
-    return *this;
-  }
-  Node& operator=( Node&& ) = default;
-  Node& operator=( Node& ) = default;
-  Node& operator=( const Node& ) = default;
 };
