@@ -594,6 +594,7 @@
   "test pattern": "test$",
   "tests": {
     "Knoop.Node": [
+      "src/Knoop/Node/test/example.cpp",
       "src/Knoop/Node/test/Node.test.cpp"
     ]
   },

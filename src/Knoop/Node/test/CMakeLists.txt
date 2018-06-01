@@ -1,5 +1,7 @@
 
-add_executable( Knoop.Node.test Node.test.cpp )
+add_executable( Knoop.Node.test
+                example.cpp
+                Node.test.cpp )
 target_compile_options( Knoop.Node.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

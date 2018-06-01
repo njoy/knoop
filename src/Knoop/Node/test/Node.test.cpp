@@ -2,6 +2,7 @@
 
 #include <map>
 #include <memory>
+#include <iostream>
 
 #include "catch.hpp"
 
@@ -9,8 +10,9 @@
 
 using namespace njoy::Knoop;
 
+using Node_t = Node<int, double, std::string, std::vector< double > >;
+
 SCENARIO( "testing the Node class" ){
-  using Node_t = Node<int, double, std::string, std::vector< double > >;
   GIVEN( "an instance of a leaf type" ){
     auto iNode = Node_t{ 3 };
     auto dNode = Node_t{ 3.14 };
