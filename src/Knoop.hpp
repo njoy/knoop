@@ -4,6 +4,8 @@
 #include <map>
 #include <variant>
 
+#include <range/v3/all.hpp>
+
 #ifdef USING_CPP17
   #include <optional>
 #else 

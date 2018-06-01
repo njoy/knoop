@@ -1,9 +1,19 @@
-Node( std::map< std::string, std::string >&& attributes,
-       Node::core_type core = "" ):
-  attributes_( attributes ),
-  core( core )
+protected:
+Node( array_type&& a ):
+  core( std::move( a ) )
 { }
 
-Node( Node::core_type core ="" ):
-  Node( std::map< std::string, std::string >(), core )
+Node( map_type&& m ):
+  core( std::move( m ) )
 { }
+
+public:
+template< typename T, 
+          typename L=void_t< decltype(leaf_type{std::declval<T>()}) > >
+Node( T&& t ):
+  core( leaf_type{ std::forward< T >( t ) } )
+{ }
+
+Node( Node&& ) = default;
+Node( Node& ) = default;
+Node( const Node& ) = default;
