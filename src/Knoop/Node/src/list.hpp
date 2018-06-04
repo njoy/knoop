@@ -1,5 +1,5 @@
 auto list() {
-  auto& list = std::experimental::get< array_type >( core );
+  auto& list = std::experimental::get< list_type >( core );
 
-  return list | ranges::view::indirect;
+  return list | ranges::view::all;
 }

@@ -1,7 +1,8 @@
 template< typename T >
-Node& push_back( T&& t ){
+Node& push_front( T&& t ){
   auto& list = std::experimental::get< list_type >( core );
-   list.emplace_back( t );
+   list.emplace_front( t );
 
   return *this;
 }
+

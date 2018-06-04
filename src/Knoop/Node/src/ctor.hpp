@@ -1,5 +1,5 @@
 protected:
-Node( array_type&& a ):
+Node( list_type&& a ):
   core( std::move( a ) )
 { }
 

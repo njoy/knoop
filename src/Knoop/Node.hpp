@@ -5,12 +5,12 @@ class Node {
 public:
   using ptr_type = std::shared_ptr< Node >;
   using leaf_type = std::variant< Ls... >;
-  using array_type = std::vector< ptr_type >;
-  using map_type = std::map< std::string, array_type >;
+  using list_type = std::list< Node >;
+  using map_type = std::map< std::string, ptr_type >;
 
   using core_type = std::variant<
     leaf_type,
-    array_type,
+    list_type,
     map_type
   >;
 
@@ -20,6 +20,7 @@ protected:
 public:
   #include "Knoop/Node/src/ctor.hpp"
   #include "Knoop/Node/src/push_back.hpp"
+  #include "Knoop/Node/src/push_front.hpp"
   #include "Knoop/Node/src/keys.hpp"
   #include "Knoop/Node/src/values.hpp"
   #include "Knoop/Node/src/list.hpp"
@@ -27,12 +28,13 @@ public:
   #include "Knoop/Node/src/equalityOperator.hpp"
   #include "Knoop/Node/src/bracketOperator.hpp"
   #include "Knoop/Node/src/get.hpp"
+  #include "Knoop/Node/src/put.hpp"
 
   // Factories
-  static Node array(){
-    return Node( array_type{} );
+  static Node makeList(){
+    return Node( list_type{} );
   }
-  static Node map(){
+  static Node makeMap(){
     return Node( map_type{} );
   }
 };

@@ -42,54 +42,44 @@ SCENARIO( "testing the Node class" ){
       }
     }
   } // GIVEN leaf type
-  GIVEN( "an array Node" ){
-    auto aNode = Node_t::array();
+  GIVEN( "an list Node" ){
+    auto aNode = Node_t::makeList();
 
     WHEN( "values have been 'push_back'-ed" ){
       aNode.push_back(1.0).push_back(2).push_back(3.14).push_back(42);
 
       THEN( "the values can be verified" ){
-        REQUIRE( 1.0  == aNode[ 0 ].get< double >() );
-        REQUIRE( 2    == aNode[ 1 ].get< int >() );
-        REQUIRE( 3.14 == aNode[ 2 ].get< double >() );
-        REQUIRE( 42   == aNode[ 3 ].get< int >() );
 
         auto list = aNode.list();
-        REQUIRE( 1.0  == list[ 0 ].get< double >() );
-        REQUIRE( 2    == list[ 1 ].get< int >() );
-        REQUIRE( 3.14 == list[ 2 ].get< double >() );
-        REQUIRE( 42   == list[ 3 ].get< int >() );
+        auto it = list.begin();
+        REQUIRE( 1.0  == it->get< double >() ); ++it;
+        REQUIRE( 2    == it->get< int >() ); ++it;
+        REQUIRE( 3.14 == it->get< double >() ); ++it;
+        REQUIRE( 42   == it->get< int >() ); ++it;
 
-        AND_THEN( "array overbounds throws an exception" ){
-          REQUIRE_THROWS( aNode[ 4 ] );
-        }
       }
     }
-  } // GIVEN array Node
+  } // GIVEN list Node
   GIVEN( "a map Node" ){
-    auto mNode = Node_t::map();
+    auto mNode = Node_t::makeMap();
 
     WHEN( "values have been inserted" ){
-      auto getString = []( Node_t& ele ){ return ele.get< std::string >(); };
+      auto getString = []( const Node_t& ele ){ 
+        return ele.get< std::string >(); 
+      };
 
-      mNode.insert( "name", "Anakin" ).insert( "surname", "Skywalker" );
-      mNode.insert( "name", "Darth" ).insert( "surname", "Vader" );
+      mNode.insert( "name", "Anakin" );
+      mNode.insert( "surname", "Skywalker" );
+
+      REQUIRE( "Anakin" == getString( mNode[ "name" ] ) );
+      REQUIRE( "Skywalker" == getString( mNode[ "surname" ] ) );
+
+      REQUIRE_THROWS( mNode.insert( "name", "Darth" ) );
+
+      mNode.put( "name", "Darth" ).put( "surname", "Vader" );
+      REQUIRE( "Darth" == getString( mNode[ "name" ] ) );
+      REQUIRE( "Vader" == getString( mNode[ "surname" ] ) );
       
-      THEN( "the values can be verified" ){
-
-        REQUIRE( ranges::equal( {"Anakin", "Darth"}, 
-            mNode[ "name" ] | ranges::view::transform(  getString ) ) );
-        REQUIRE( ranges::equal( {"Skywalker", "Vader"}, 
-            mNode[ "surname" ] | ranges::view::transform(  getString ) ) );
-      }
-
-      THEN( "the keys and values can be extracted" ){
-        auto keys = mNode.keys();
-        auto values = mNode.values().front();
-        REQUIRE( ranges::equal( { "name", "surname" }, keys ) );
-        REQUIRE( ranges::equal( { "Anakin", "Darth" }, 
-                 values | ranges::view::transform( getString ) ) );
-      }
     }
-  }
+  } // GIVEN map
 } // SCENARIO
