@@ -60,7 +60,7 @@ SCENARIO( "Simulating GNDS" ){
                    Attribute{ "name", "Obi-Wan" },
                    Attribute{ "surname", "Kenobi" } ) );
 
-    // THEN( "the attributes can be checked" ){
+    THEN( "the attributes can be checked" ){
       auto attributes = gndsNode["attributes"];
 
       std::string value = attributes[ "name" ].get< std::string >();
@@ -69,35 +69,32 @@ SCENARIO( "Simulating GNDS" ){
       REQUIRE( "Skywalker" == value );
 
       REQUIRE( 2 == gndsNode[ "elements" ].list().size() );
-    // }
+    }
 
-    // THEN( "we can find all the Skywalkers" ){
-      auto isSkywalker = []( auto&& node ){ 
-        auto name = node[ "attributes" ][ "surname" ].template 
-            get< std::string>();
-        std::cout << name << std::endl;
-        return name == "Skywalker";
-      };
+    auto isSkywalker = []( auto&& node ){ 
+      auto name = node[ "attributes" ][ "surname" ].template 
+          get< std::string>();
+      return name == "Skywalker";
+    };
+    THEN( "we can find all the Skywalkers" ){
       auto children = gndsNode[ "elements" ].list()
           | ranges::view::filter( isSkywalker );
 
       REQUIRE( 1 == ranges::distance( children.begin(), children.end() ) );
       REQUIRE( isSkywalker( children.front() ) );
-      REQUIRE( not isSkywalker( children.back() ) );
-      std::cout << std::endl;
 
-      // WHEN( "children are added" ){
+      WHEN( "children are added" ){
         gndsNode[ "elements" ].push_back( 
           GNDSNode( "person", 
                     Attribute{"name", "Leia" },
                     Attribute{ "surname", "Skywalker" } ) );
 
         REQUIRE( 3 == gndsNode[ "elements" ].list().size() );
-        children = gndsNode[ "elements" ].list()
+        auto children = gndsNode[ "elements" ].list()
             | ranges::view::filter( isSkywalker );
         REQUIRE( 2 == ranges::distance( children.begin(), children.end() ) );
-      // }
-    // }
+      }
+    }
 
   }
 } // SCENARIO
