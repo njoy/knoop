@@ -3,7 +3,7 @@ template< typename... Ts > using void_t = void;
 template< typename... Ls >
 class Node {
 public:
-  using ptr_type = std::shared_ptr< Node >;
+  using ptr_type = valuable::value_ptr< Node >;
   using leaf_type = std::variant< Ls... >;
   using list_type = std::list< Node >;
   using map_type = std::map< std::string, ptr_type >;

@@ -17,6 +17,8 @@
   }
 #endif
 
+#include "Knoop/value-ptr.hpp"
+
 namespace njoy {
 namespace Knoop {
   #include "Knoop/Node.hpp"
