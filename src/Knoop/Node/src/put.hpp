@@ -1,12 +1,11 @@
-template< typename T >
-Node& put( std::string str, T&& t ){
+template< typename Str, typename T >
+Node& put( Str&& str, T&& t ){
   auto& map = std::experimental::get< map_type >( core );
-  // auto shared = std::make_shared< Node >( t );
-
-  auto p = map.emplace( str, t );
-
-  if ( not p.second ){ 
-    p.first->second = valuable::value_ptr< Node >{ std::move( t ) };
+  auto it = map.find( str );
+  if ( it != map.end() ){
+    it->second = valuable::value_ptr< Node >{ std::forward<T>(t) };
+  } else {
+    map.emplace(str, std::forward<T>(t));
   }
   return *this;
 }

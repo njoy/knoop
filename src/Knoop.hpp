@@ -7,17 +7,10 @@
 
 #include <range/v3/all.hpp>
 
-#ifdef USING_CPP17
-  #include <optional>
-#else 
-  #include <experimental/optional>
+#include <experimental/optional>
+namespace std { using namespace std::experimental; }
 
-  namespace std {
-    using namespace std::experimental;
-  }
-#endif
-
-#include "Knoop/value-ptr.hpp"
+#include "value-ptr.hpp"
 
 namespace njoy {
 namespace Knoop {

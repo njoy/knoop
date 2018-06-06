@@ -7,3 +7,6 @@
 [submodule "dependencies/range-v3-adapter"]
 	path = dependencies/range-v3-adapter
 	url = https://github.com/njoy/range-v3-adapter.git
+[submodule "dependencies/valuable-adapter"]
+	path = dependencies/valuable-adapter
+	url = https://github.com/njoy/valuable-adapter.git
