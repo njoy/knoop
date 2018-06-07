@@ -256,24 +256,23 @@ message( STATUS "" )
 message( STATUS "-----------------------------------------------------------" )
 
 add_library( Knoop INTERFACE )
-target_sources( Knoop INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop/Node.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop/Node/src/assignmentOperator.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop/Node/src/bracketOperator.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop/Node/src/contains.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop/Node/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop/Node/src/equalityOperator.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop/Node/src/erase.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop/Node/src/get.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop/Node/src/insert.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop/Node/src/keys.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop/Node/src/list.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop/Node/src/pop_back.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop/Node/src/pop_front.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop/Node/src/push_back.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop/Node/src/push_front.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop/Node/src/put.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/Knoop/Node/src/values.hpp" )
+target_sources( Knoop INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/assignmentOperator.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/bracketOperator.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/contains.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/erase.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/get.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/insert.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/keys.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/list.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/pop_back.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/pop_front.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/push_back.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/push_front.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/put.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/values.hpp" )
 
 target_include_directories( Knoop INTERFACE src/ )
 
@@ -286,7 +285,7 @@ target_link_libraries( Knoop INTERFACE catch-adapter INTERFACE range-v3-adapter 
 if( NOT is_subproject )
     enable_testing() 
     if ( unit_tests )
-        add_subdirectory( src/Knoop/Node/test )
+        add_subdirectory( src/knoop/Node/test )
     endif() 
 endif()
 

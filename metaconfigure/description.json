@@ -573,24 +573,23 @@
     ]
   }, 
   "header files": [
-    "src/Knoop.hpp", 
-    "src/Knoop/Node.hpp", 
-    "src/Knoop/Node/src/assignmentOperator.hpp", 
-    "src/Knoop/Node/src/bracketOperator.hpp", 
-    "src/Knoop/Node/src/contains.hpp", 
-    "src/Knoop/Node/src/ctor.hpp", 
-    "src/Knoop/Node/src/equalityOperator.hpp", 
-    "src/Knoop/Node/src/erase.hpp", 
-    "src/Knoop/Node/src/get.hpp", 
-    "src/Knoop/Node/src/insert.hpp", 
-    "src/Knoop/Node/src/keys.hpp", 
-    "src/Knoop/Node/src/list.hpp", 
-    "src/Knoop/Node/src/pop_back.hpp", 
-    "src/Knoop/Node/src/pop_front.hpp", 
-    "src/Knoop/Node/src/push_back.hpp", 
-    "src/Knoop/Node/src/push_front.hpp", 
-    "src/Knoop/Node/src/put.hpp", 
-    "src/Knoop/Node/src/values.hpp"
+    "src/knoop.hpp", 
+    "src/knoop/Node.hpp", 
+    "src/knoop/Node/src/assignmentOperator.hpp", 
+    "src/knoop/Node/src/bracketOperator.hpp", 
+    "src/knoop/Node/src/contains.hpp", 
+    "src/knoop/Node/src/ctor.hpp", 
+    "src/knoop/Node/src/erase.hpp", 
+    "src/knoop/Node/src/get.hpp", 
+    "src/knoop/Node/src/insert.hpp", 
+    "src/knoop/Node/src/keys.hpp", 
+    "src/knoop/Node/src/list.hpp", 
+    "src/knoop/Node/src/pop_back.hpp", 
+    "src/knoop/Node/src/pop_front.hpp", 
+    "src/knoop/Node/src/push_back.hpp", 
+    "src/knoop/Node/src/push_front.hpp", 
+    "src/knoop/Node/src/put.hpp", 
+    "src/knoop/Node/src/values.hpp"
   ], 
   "ignore pattern": "$^", 
   "implementation files": [], 
@@ -608,14 +607,14 @@
   "strict": true, 
   "test pattern": "test$", 
   "tests": {
-    "Knoop.Node": [
-      "src/Knoop/Node/test/assignment.test.cpp", 
-      "src/Knoop/Node/test/ctor.test.cpp", 
-      "src/Knoop/Node/test/example.cpp", 
-      "src/Knoop/Node/test/get.test.cpp", 
-      "src/Knoop/Node/test/list.test.cpp", 
-      "src/Knoop/Node/test/map.test.cpp", 
-      "src/Knoop/Node/test/Node.test.cpp"
+    "knoop.Node": [
+      "src/knoop/Node/test/assignment.test.cpp", 
+      "src/knoop/Node/test/ctor.test.cpp", 
+      "src/knoop/Node/test/example.cpp", 
+      "src/knoop/Node/test/get.test.cpp", 
+      "src/knoop/Node/test/list.test.cpp", 
+      "src/knoop/Node/test/map.test.cpp", 
+      "src/knoop/Node/test/Node.test.cpp"
     ]
   }, 
   "update": true
