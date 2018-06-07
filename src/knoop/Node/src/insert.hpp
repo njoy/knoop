@@ -1,0 +1,23 @@
+template< typename Str, typename T,
+          typename = void_t< decltype( std::declval< map_type >()
+                                       .at( std::declval< Str >() ) ) > >
+Node& insert( Str&& str, T&& t ){
+  auto& map = std::experimental::get< map_type >( core );
+  const auto p = map.emplace( str, std::forward<T>(t) );
+  if ( not p.second ){ throw std::runtime_error("didn't work"); }
+  return *this;
+}
+
+template< typename T >
+Node& insert( list_iterator it, T&& t ){
+  auto& list = std::experimental::get< list_type >( core );
+  list.insert(it, std::forward<T>(t) );
+  return *this;
+}
+
+template< typename T, typename... Args >
+Node& insert( list_iterator it, T&& t, Args&&... args ){
+  auto& list = std::experimental::get< list_type >( core );
+  list.insert(it, std::forward<T>(t) );
+  return this->insert(it, std::forward<Args>(args)... );
+}
