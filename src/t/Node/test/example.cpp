@@ -2,9 +2,9 @@
 
 #include "catch.hpp"
 
-#include "Knoop.hpp"
+#include "knoop.hpp"
 
-using namespace njoy::Knoop;
+using namespace njoy::knoop;
 
 using Node_t = Node<int, double, std::string, std::vector< double > >;
 

@@ -13,8 +13,8 @@ namespace std { using namespace std::experimental; }
 #include "value-ptr.hpp"
 
 namespace njoy {
-namespace Knoop {
-  #include "Knoop/Node.hpp"
+namespace knoop {
+  #include "knoop/Node.hpp"
 }
 }
 

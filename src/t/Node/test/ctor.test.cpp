@@ -1,7 +1,7 @@
-#include "Knoop.hpp"
+#include "knoop.hpp"
 #include "catch.hpp"
 
-using namespace njoy::Knoop;
+using namespace njoy::knoop;
 using Node_t = Node<int, std::string>;
 
 SCENARIO( "construction" ){
