@@ -4,17 +4,14 @@
 using namespace njoy::knoop;
 using Node_t = Node<int, std::string>;
 
-SCENARIO( "leaf node value extraction" ){
-  // this lambda is a workaround for isuues in the interaction between
-  // C macros (like Catch's REQUIRE statement) and C++ template
-  // instatiations;
-  auto getInt =
-    [](auto&& node)
-    // auto&& respects and preserves const-ness
-    -> decltype(auto)
-    // decltype(auto) explicit return type preserves reference-ness
-    { return node.template get<int>(); };
+// this functions are a workaround for isuues in the interaction between
+// C macros (like Catch's REQUIRE statement) and C++ template
+// instatiations;
 
+int& getInt(Node_t& node);
+const int& getInt(const Node_t& node);
+
+SCENARIO( "leaf node value extraction" ){
   SECTION("the get function returns a reference"){
     auto iNode = Node_t{ 3 };
     const auto& ciNode = iNode;

@@ -4,21 +4,16 @@
 using namespace njoy::knoop;
 using Node_t = Node<int, std::string>;
 
+// this functions are a workaround for isuues in the interaction between
+// C macros (like Catch's REQUIRE statement) and C++ template
+// instatiations;
+
+int& getInt(Node_t& node);
+const int& getInt(const Node_t& node);
+std::string& getString(Node_t& node);
+const std::string& getString(const Node_t& node);
+
 SCENARIO( "assignment" ){
-  // this lambda is a workaround for isuues in the interaction between
-  // C macros (like Catch's REQUIRE statement) and C++ template
-  // instatiations;
-  auto getInt =
-    [](auto&& node)
-    // auto&& respects and preserves const-ness
-    -> decltype(auto)
-    // decltype(auto) explicit return type preserves reference-ness
-    { return node.template get<int>(); };
-
-  auto getString =
-    [](auto&& node) -> decltype(auto)
-    { return node.template get<std::string>(); };
-
   GIVEN("two nodes"){
     THEN("nodes can assigned from other nodes"){
       auto iNode = Node_t{ 3 };
