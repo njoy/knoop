@@ -22,4 +22,7 @@ void nesting(){
 
   mNode.insert( "child", Node_t::makeMap() );
   // auto child = mNode.get< std::map >();
+  
+  auto childNode = Node_t::makeMap();
+  // mNode.insert( "child", std::move( cmNode ) );
 }
