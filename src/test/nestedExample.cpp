@@ -20,9 +20,11 @@ void nesting(){
   mNode.insert( "double", 1.1 );
   mNode.insert( "int", 2 ).insert( "string", "three" );
 
-  mNode.insert( "child", Node_t::makeMap() );
-  // auto child = mNode.get< std::map >();
+  // This creates a list of Node_t, but the list initially has only one element
+  mNode.insert( "child", Node_t{1} );
   
-  auto childNode = Node_t::makeMap();
-  // mNode.insert( "child", std::move( cmNode ) );
+  // We can create a second 'child' node, but this time, we must 'put' it on 
+  // the map because the list of Nodes with the name of "child" is already there
+  // Note that the two children nodes can have different types
+  mNode.put( "child", Node_t{3.14} );
 }
