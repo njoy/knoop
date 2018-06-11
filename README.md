@@ -6,7 +6,7 @@ The word `knoop` is the [Dutch word](https://translate.google.com/#nl/en/knoop) 
 
 ## Examples
 
-```
+```cpp
 #include <iostream>
 #include <vector>
 
