@@ -1,5 +1,7 @@
 
-add_executable( Knoop.test example1.cpp )
+add_executable( Knoop.test
+                example1.cpp
+                nestedExample.cpp )
 target_compile_options( Knoop.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

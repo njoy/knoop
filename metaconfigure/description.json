@@ -608,7 +608,8 @@
   "test pattern": "test$",
   "tests": {
     "Knoop": [
-      "src/test/example1.cpp"
+      "src/test/example1.cpp",
+      "src/test/nestedExample.cpp"
     ],
     "knoop.Node": [
       "src/knoop/Node/test/assignment.test.cpp",
