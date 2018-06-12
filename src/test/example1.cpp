@@ -27,13 +27,16 @@ int main( ){
   Node_t varNode{1.1, 2, "three"};
 
   // We can get a list of each of the Nodes
-  const auto& list = varNode.list();
+  auto list = varNode.list();
   // and can iterate through it as we would from the STL
   auto it = list.begin();
   cout << endl;
-  cout << "varNode has double value: " << (*it++).get< double> () << endl;
-  cout << "varNode has int value: " << (*it++).get< int >() << endl;
-  cout << "varNode has string value: " << (*it++).get< std::string >() << endl;
+  cout << "varNode has double value: " << (*it).get< double> () << endl;
+  ++it;
+  cout << "varNode has int value: " << (*it).get< int >() << endl;
+  ++it;
+  cout << "varNode has string value: " << (*it).get< std::string >() << endl;
+  ++it;
 
 
   Node< std::vector< double > > vNode{

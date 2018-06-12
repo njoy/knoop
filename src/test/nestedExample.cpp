@@ -20,11 +20,24 @@ void nesting(){
   mNode.insert( "double", 1.1 );
   mNode.insert( "int", 2 ).insert( "string", "three" );
 
-  // This creates a list of Node_t, but the list initially has only one element
-  mNode.insert( "child", Node_t{1} );
+  // We can replace (or insert) a child node by using 'put'
+  mNode.put( "double", Node_t{3.14} );
+
+  // This creates a child (sub) Node with an empty list
+  mNode.put( "child", Node_t::makeList() );
   
-  // We can create a second 'child' node, but this time, we must 'put' it on 
-  // the map because the list of Nodes with the name of "child" is already there
-  // Note that the two children nodes can have different types
-  mNode.put( "child", Node_t{3.14} );
+  // This creates a child Node with a list that has been populated with the 
+  // values you provided in the constructor
+  mNode.put( "child", Node_t{ 4, 5.5, "six" } );
+
+  // This will reassigns the node that is called 'child'
+  mNode[ "child" ] = "seventy-five";
+
+  // This causes a runtime exception because the "APM" child node does not (yet)
+  // exist
+  try {
+    mNode[ "APM" ] = "crazy";
+  } catch( std::exception& e ){
+    cout << "You should not try to assign to a child that doesn't exist.";
+  }
 }

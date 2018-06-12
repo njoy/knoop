@@ -35,7 +35,7 @@ int main( ){
   Node_t varNode{1.1, 2, "three"};
 
   // We can get a list of each of the Nodes
-  const auto& list = varNode.list();
+  auto list = varNode.list();
   // and can iterate through it as we would from the STL
   auto it = list.begin();
   cout << endl;
