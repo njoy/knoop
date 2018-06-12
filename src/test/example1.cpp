@@ -1,12 +1,4 @@
-# knoop
-Knoop is a hierarchical node tree
 
-## Why knoop?
-The word `knoop` is the [Dutch word](https://translate.google.com/#nl/en/knoop) for node. `knoop` is a better name for a software project than just `node`.
-
-## Examples
-
-```cpp
 #include <iostream>
 #include <vector>
 
@@ -39,9 +31,12 @@ int main( ){
   // and can iterate through it as we would from the STL
   auto it = list.begin();
   cout << endl;
-  cout << "varNode has double value: " << (*it++).get< double> () << endl;
-  cout << "varNode has int value: " << (*it++).get< int >() << endl;
-  cout << "varNode has string value: " << (*it++).get< std::string >() << endl;
+  cout << "varNode has double value: " << (*it).get< double> () << endl;
+  ++it;
+  cout << "varNode has int value: " << (*it).get< int >() << endl;
+  ++it;
+  cout << "varNode has string value: " << (*it).get< std::string >() << endl;
+  ++it;
 
 
   Node< std::vector< double > > vNode{
@@ -54,13 +49,7 @@ int main( ){
        << vec[2] << ", " 
        << vec[3] << ", " 
        << endl;
+
+  // Example of how to create nested nodes
+  nesting();
 }
-```
-
-Additional examples can be found in the [test](src/test) directory.
-
-# License and Copyright
-Copyright Number: C17049
-Copyright Statement: Copyright (c) 2017, Los Alamos National Security, LLC. All Rights reserved.
-
-This software is distributed according to the [LICENSE](LICENSE) file.

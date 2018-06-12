@@ -115,4 +115,20 @@ SCENARIO( "list" ){
       }
     }
   }
+  GIVEN( "values to build a list Node" ){
+    Node_t list{ 1, 2, "hello", 4, 5 };
+    auto listsList = list.list();
+    REQUIRE( 1 == getInt( listsList.front() ) );
+    REQUIRE( 5 == getInt( listsList.back() ) );
+
+    auto it = listsList.begin();
+    REQUIRE( 1 == getInt(*it) ); ++it;
+    REQUIRE( 2 == getInt(*it) ); ++it;
+    REQUIRE_THROWS( getInt(*it) );
+    REQUIRE( "hello" == getString(*it) ); ++it;
+    REQUIRE( 4 == getInt(*it) ); ++it;
+    REQUIRE( 5 == getInt(*it) ); ++it;
+    REQUIRE( it == listsList.end() );
+
+  }
 }
