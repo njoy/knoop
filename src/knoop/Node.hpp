@@ -27,8 +27,6 @@ public:
   #include "knoop/Node/src/pop_front.hpp"
   #include "knoop/Node/src/front.hpp"
   #include "knoop/Node/src/back.hpp"
-  #include "knoop/Node/src/begin.hpp"
-  #include "knoop/Node/src/end.hpp"
 
   #include "knoop/Node/src/keys.hpp"
   #include "knoop/Node/src/values.hpp"

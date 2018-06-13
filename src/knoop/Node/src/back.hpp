@@ -1,9 +1,7 @@
 const Node& back() const {
-  auto& list = std::experimental::get< list_type >( core );
-  return list.back();
+  return std::experimental::get< list_type >( core ).back();
 }
 
 Node& back() {
-  auto& list = std::experimental::get< list_type >( core );
-  return list.back();
+  return std::experimental::get< list_type >( core ).back();
 }

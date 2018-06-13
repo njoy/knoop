@@ -121,14 +121,14 @@ SCENARIO( "list" ){
     REQUIRE( 1 == getInt( list.front() ) );
     REQUIRE( 5 == getInt( list.back() ) );
 
-    auto it = list.begin();
+    auto it = list.list().begin();
     REQUIRE( 1 == getInt(*it) ); ++it;
     REQUIRE( 2 == getInt(*it) ); ++it;
     REQUIRE_THROWS( getInt(*it) );
     REQUIRE( "hello" == getString(*it) ); ++it;
     REQUIRE( 4 == getInt(*it) ); ++it;
     REQUIRE( 5 == getInt(*it) ); ++it;
-    REQUIRE( it == list.end() );
+    REQUIRE( it == list.list().end() );
 
   }
 }
