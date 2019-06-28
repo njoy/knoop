@@ -597,7 +597,7 @@
   "initialized": true,
   "is external project": false,
   "language": "c++",
-  "name": "Knoop",
+  "name": "knoop",
   "standard": "c++14",
   "standards": [
     "c++98",
