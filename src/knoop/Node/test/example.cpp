@@ -18,7 +18,7 @@ struct Attribute : std::pair< std::string, std::string >{
 Node_t GNDSNode( const std::string& name ){
   auto mNode = Node_t::makeMap();
 
-  mNode.insert( "name", name );
+  mNode.insert( "name", Node_t{ name } );
   mNode.insert( "attributes", Node_t::makeMap() );
   mNode.insert( "children", Node_t::makeList() );
   return mNode;
@@ -28,7 +28,7 @@ template< typename... Ts >
 Node_t GNDSNode( const std::string& name, Attribute attribute, Ts&& ... ts ){
 
   auto gndsNode = GNDSNode( name, std::forward< Ts >( ts ) ... );
-  gndsNode["attributes"].insert(attribute.first, attribute.second);
+  gndsNode["attributes"].insert(attribute.first, Node_t{ attribute.second } );
   return gndsNode;
 }
 

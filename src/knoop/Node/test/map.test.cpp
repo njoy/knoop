@@ -18,9 +18,9 @@ SCENARIO( "map" ){
     auto mNode = Node_t::makeMap();
 
     WHEN( "values can be inserted" ){
-      mNode.insert( "name", "Anakin" )
-           .insert( "surname", "Skywalker" )
-           .insert( "age", 22 );
+      mNode.insert( "name", Node_t{ "Anakin" } )
+           .insert( "surname", Node_t{ "Skywalker" } )
+           .insert( "age", Node_t{ 22 } );
 
       REQUIRE(ranges::equal({"age", "name", "surname"}, mNode.keys()));
 
@@ -34,10 +34,10 @@ SCENARIO( "map" ){
       REQUIRE( 22 == getInt( mNode[ "age" ] ) );
 
       THEN("inserting an existing node will throw"){
-        REQUIRE_THROWS( mNode.insert( "name", "Darth" ) );
+        REQUIRE_THROWS( mNode.insert( "name", Node_t{ "Darth" } ) );
       }
 
-      mNode.put( "name", "Darth" ).put( "surname", "Vader" );
+      mNode.put( "name", Node_t{ "Darth" } ).put( "surname", Node_t{ "Vader" } );
 
       REQUIRE( "Darth" == getString( mNode[ "name" ] ) );
       REQUIRE( "Vader" == getString( mNode[ "surname" ] ) );

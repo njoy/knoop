@@ -17,8 +17,8 @@ void nesting(){
   auto mNode = Node_t::makeMap();
 
   // Add some child nodes
-  mNode.insert( "double", 1.1 );
-  mNode.insert( "int", 2 ).insert( "string", "three" );
+  mNode.insert( "double", Node_t{ 1.1 } );
+  mNode.insert( "int", Node_t{ 2 } ).insert( "string", Node_t{ "three" } );
 
   // We can replace (or insert) a child node by using 'put'
   mNode.put( "double", Node_t{3.14} );
