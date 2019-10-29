@@ -1,11 +1,11 @@
 template< typename T >
 const T& get() const {
-  const auto& leaf = std::experimental::get< leaf_type >( core );
-  return std::experimental::get<T>(leaf);
+  const auto& leaf = std::get< leaf_type >( core );
+  return std::get<T>(leaf);
 }
 
 template< typename T >
 T& get(){
-  auto& leaf = std::experimental::get< leaf_type >( core );
-  return std::experimental::get<T>(leaf);
+  auto& leaf = std::get< leaf_type >( core );
+  return std::get<T>(leaf);
 }
