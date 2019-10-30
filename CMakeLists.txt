@@ -1,5 +1,5 @@
 
-cmake_minimum_required( VERSION 3.2 ) 
+cmake_minimum_required( VERSION 3.2 )
 set( CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Supported configuration types" FORCE )
         
 if ( NOT GIT_EXECUTABLE )
@@ -19,7 +19,7 @@ if( NOT ROOT_DIRECTORY )
             endif()
         endif()
         execute_process( COMMAND ${PYTHON_EXECUTABLE} "./metaconfigure/fetch_subprojects.py"
-                         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} 
+                         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
                          RESULT_VARIABLE fetch_failure )
         if ( NOT fetch_failure )
             set( fetched_subprojects TRUE CACHE BOOL "fetch script ran" )
@@ -27,6 +27,22 @@ if( NOT ROOT_DIRECTORY )
             message( FATAL_ERROR "Failed to fetch dependencies" )
         endif()
     endif()
+endif()
+
+if( NOT is_subproject )
+    if( NOT ROOT_DIRECTORY )
+        set( ROOT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} )
+    endif()
+    if ( NOT PYTHON_EXECUTABLE )
+        find_package( PythonInterp )
+        if ( NOT PYTHONINTERP_FOUND )
+            message( FATAL_ERROR "Python interpreter installation was not found." )
+        endif()
+    endif()
+    execute_process( COMMAND ${PYTHON_EXECUTABLE} ./metaconfigure/signature.py ${CMAKE_BINARY_DIR}/signature
+                        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                        RESULT_VARIABLE signature_failure )
+    file( READ "${CMAKE_BINARY_DIR}/signature.json" SIGNATURE )
 endif()
 
 project( knoop LANGUAGES CXX )
@@ -75,7 +91,7 @@ if ( profile_generate )
     file( MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/profiling" )
 endif()
 
-set( knoop_AppleClang_Darwin_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( knoop_AppleClang_Darwin_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
 set( knoop_AppleClang_Darwin_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
 set( knoop_AppleClang_Darwin_RELEASE_flags "-O3" "-DNDEBUG" )
 set( knoop_AppleClang_Darwin_strict_flags "-Werror" )
@@ -87,7 +103,7 @@ set( knoop_AppleClang_Darwin_link_time_optimization_flags "-flto" )
 set( knoop_AppleClang_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( knoop_AppleClang_Darwin_nonportable_optimization_flags "-march=native" )
 set( knoop_AppleClang_Darwin_static_flags "-static" )
-set( knoop_GNU_Windows_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( knoop_GNU_Windows_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
 set( knoop_GNU_Windows_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
 set( knoop_GNU_Windows_RELEASE_flags "-O3" "-DNDEBUG" )
 set( knoop_GNU_Windows_strict_flags "-Werror" )
@@ -99,7 +115,7 @@ set( knoop_GNU_Windows_link_time_optimization_flags "-flto" )
 set( knoop_GNU_Windows_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( knoop_GNU_Windows_nonportable_optimization_flags "-march=native" )
 set( knoop_GNU_Windows_static_flags "-static" )
-set( knoop_GNU_Darwin_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( knoop_GNU_Darwin_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
 set( knoop_GNU_Darwin_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
 set( knoop_GNU_Darwin_RELEASE_flags "-O3" "-DNDEBUG" )
 set( knoop_GNU_Darwin_strict_flags "-Werror" )
@@ -111,19 +127,7 @@ set( knoop_GNU_Darwin_link_time_optimization_flags "-flto" )
 set( knoop_GNU_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( knoop_GNU_Darwin_nonportable_optimization_flags "-march=native" )
 set( knoop_GNU_Darwin_static_flags "-static" )
-set( knoop_GNU_Linux_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
-set( knoop_GNU_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
-set( knoop_GNU_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
-set( knoop_GNU_Linux_strict_flags "-Werror" )
-set( knoop_GNU_Linux_coverage_flags "--coverage" )
-set( knoop_GNU_Linux_subproject_flags  )
-set( knoop_GNU_Linux_base_project_flags  )
-set( knoop_GNU_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( knoop_GNU_Linux_link_time_optimization_flags "-flto" )
-set( knoop_GNU_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( knoop_GNU_Linux_nonportable_optimization_flags "-march=native" )
-set( knoop_GNU_Linux_static_flags "-static" )
-set( knoop_GNU_MinGW_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( knoop_GNU_MinGW_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
 set( knoop_GNU_MinGW_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
 set( knoop_GNU_MinGW_RELEASE_flags "-O3" "-DNDEBUG" )
 set( knoop_GNU_MinGW_strict_flags "-Werror" )
@@ -135,7 +139,7 @@ set( knoop_GNU_MinGW_link_time_optimization_flags "-flto" )
 set( knoop_GNU_MinGW_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( knoop_GNU_MinGW_nonportable_optimization_flags "-march=native" )
 set( knoop_GNU_MinGW_static_flags "-static" )
-set( knoop_GNU_CYGWIN_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=gnu++14" )
+set( knoop_GNU_CYGWIN_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=gnu++17" )
 set( knoop_GNU_CYGWIN_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
 set( knoop_GNU_CYGWIN_RELEASE_flags "-O3" "-DNDEBUG" )
 set( knoop_GNU_CYGWIN_strict_flags "-Werror" )
@@ -147,7 +151,19 @@ set( knoop_GNU_CYGWIN_link_time_optimization_flags "-flto" )
 set( knoop_GNU_CYGWIN_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( knoop_GNU_CYGWIN_nonportable_optimization_flags "-march=native" )
 set( knoop_GNU_CYGWIN_static_flags "-static" )
-set( knoop_Clang_Windows_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( knoop_GNU_Linux_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
+set( knoop_GNU_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
+set( knoop_GNU_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
+set( knoop_GNU_Linux_strict_flags "-Werror" )
+set( knoop_GNU_Linux_coverage_flags "--coverage" )
+set( knoop_GNU_Linux_subproject_flags  )
+set( knoop_GNU_Linux_base_project_flags  )
+set( knoop_GNU_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( knoop_GNU_Linux_link_time_optimization_flags "-flto" )
+set( knoop_GNU_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( knoop_GNU_Linux_nonportable_optimization_flags "-march=native" )
+set( knoop_GNU_Linux_static_flags "-static" )
+set( knoop_Clang_Windows_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
 set( knoop_Clang_Windows_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
 set( knoop_Clang_Windows_RELEASE_flags "-O3" "-DNDEBUG" )
 set( knoop_Clang_Windows_strict_flags "-Werror" )
@@ -159,7 +175,7 @@ set( knoop_Clang_Windows_link_time_optimization_flags "-flto" )
 set( knoop_Clang_Windows_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( knoop_Clang_Windows_nonportable_optimization_flags "-march=native" )
 set( knoop_Clang_Windows_static_flags "-static" )
-set( knoop_Clang_Darwin_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( knoop_Clang_Darwin_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
 set( knoop_Clang_Darwin_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
 set( knoop_Clang_Darwin_RELEASE_flags "-O3" "-DNDEBUG" )
 set( knoop_Clang_Darwin_strict_flags "-Werror" )
@@ -171,19 +187,7 @@ set( knoop_Clang_Darwin_link_time_optimization_flags "-flto" )
 set( knoop_Clang_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( knoop_Clang_Darwin_nonportable_optimization_flags "-march=native" )
 set( knoop_Clang_Darwin_static_flags "-static" )
-set( knoop_Clang_Linux_common_flags "-stdlib=libstdc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
-set( knoop_Clang_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
-set( knoop_Clang_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
-set( knoop_Clang_Linux_strict_flags "-Werror" )
-set( knoop_Clang_Linux_coverage_flags "--coverage" )
-set( knoop_Clang_Linux_subproject_flags  )
-set( knoop_Clang_Linux_base_project_flags  )
-set( knoop_Clang_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( knoop_Clang_Linux_link_time_optimization_flags "-flto" )
-set( knoop_Clang_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( knoop_Clang_Linux_nonportable_optimization_flags "-march=native" )
-set( knoop_Clang_Linux_static_flags "-static" )
-set( knoop_Clang_MinGW_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++14" )
+set( knoop_Clang_MinGW_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
 set( knoop_Clang_MinGW_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
 set( knoop_Clang_MinGW_RELEASE_flags "-O3" "-DNDEBUG" )
 set( knoop_Clang_MinGW_strict_flags "-Werror" )
@@ -195,7 +199,7 @@ set( knoop_Clang_MinGW_link_time_optimization_flags "-flto" )
 set( knoop_Clang_MinGW_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( knoop_Clang_MinGW_nonportable_optimization_flags "-march=native" )
 set( knoop_Clang_MinGW_static_flags "-static" )
-set( knoop_Clang_CYGWIN_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=gnu++14" )
+set( knoop_Clang_CYGWIN_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=gnu++17" )
 set( knoop_Clang_CYGWIN_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
 set( knoop_Clang_CYGWIN_RELEASE_flags "-O3" "-DNDEBUG" )
 set( knoop_Clang_CYGWIN_strict_flags "-Werror" )
@@ -207,18 +211,26 @@ set( knoop_Clang_CYGWIN_link_time_optimization_flags "-flto" )
 set( knoop_Clang_CYGWIN_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( knoop_Clang_CYGWIN_nonportable_optimization_flags "-march=native" )
 set( knoop_Clang_CYGWIN_static_flags "-static" )
+set( knoop_Clang_Linux_common_flags "-stdlib=libstdc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
+set( knoop_Clang_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
+set( knoop_Clang_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
+set( knoop_Clang_Linux_strict_flags "-Werror" )
+set( knoop_Clang_Linux_coverage_flags "--coverage" )
+set( knoop_Clang_Linux_subproject_flags  )
+set( knoop_Clang_Linux_base_project_flags  )
+set( knoop_Clang_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( knoop_Clang_Linux_link_time_optimization_flags "-flto" )
+set( knoop_Clang_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( knoop_Clang_Linux_nonportable_optimization_flags "-march=native" )
+set( knoop_Clang_Linux_static_flags "-static" )
 get_directory_property( is_subproject PARENT_DIRECTORY )
-
-if( NOT TARGET range-v3-adapter )
-    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/range-v3-adapter )
-endif()
 
 if( NOT TARGET catch-adapter )
     add_subdirectory( ${ROOT_DIRECTORY}/subprojects/catch-adapter )
 endif()
 
-if( NOT TARGET variant-adapter )
-    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/variant-adapter )
+if( NOT TARGET range-v3-adapter )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/range-v3-adapter )
 endif()
 
 if( NOT TARGET valuable-adapter )
@@ -258,46 +270,52 @@ message( STATUS "-----------------------------------------------------------" )
 add_library( knoop INTERFACE )
 target_sources( knoop INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/insert.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/get.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/keys.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/values.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/push_front.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/bracketOperator.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/assignmentOperator.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/list.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/ctor.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/pop_front.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/put.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/push_back.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/front.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/list.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/back.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/push_back.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/pop_back.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/push_front.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/get.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/bracketOperator.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/values.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/pop_front.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/assignmentOperator.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/insert.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/erase.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/keys.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/knoop/Node/src/contains.hpp" )
 
-target_include_directories( knoop INTERFACE src/ )
+target_include_directories( knoop INTERFACE ${CMAKE_CURRENT_BINARY_DIR}/src src/ )
 
 set( PREFIX knoop_${CMAKE_CXX_COMPILER_ID}_${CMAKE_SYSTEM_NAME} )
 
 target_link_libraries( knoop INTERFACE "$<$<AND:$<CONFIG:RELEASE>,$<BOOL:${link_time_optimization}>>:${${PREFIX}_RELEASE_flags};${${PREFIX}_link_time_optimization_flags}$<$<BOOL:${profile_generate}>:${${PREFIX}_profile_generate_flags};>$<$<BOOL:${profile_use}>:${${PREFIX}_profile_use_flags};>$<$<BOOL:${nonportable_optimization}>:${${PREFIX}_nonportable_optimization_flags};>>$<$<CONFIG:DEBUG>:$<$<BOOL:${coverage}>:${${PREFIX}_coverage_flags};>>$<$<BOOL:CXX_appended_flags>:${CXX_appended_flags};>$<$<BOOL:knoop_appended_flags>:${knoop_appended_flags};>" )
 
-target_link_libraries( knoop INTERFACE range-v3-adapter INTERFACE catch-adapter INTERFACE variant-adapter INTERFACE valuable-adapter )
+target_link_libraries( knoop INTERFACE catch-adapter INTERFACE range-v3-adapter INTERFACE valuable-adapter )
 
 if( NOT is_subproject )
     enable_testing() 
     if ( unit_tests )
-        add_subdirectory( src/test )
         add_subdirectory( src/knoop/Node/test )
+        add_subdirectory( src/test )
     endif() 
 endif()
 
+install( FILES "${CMAKE_BINARY_DIR}/signature.json"
+         DESTINATION share/${CMAKE_PROJECT_NAME}
+         PERMISSIONS OWNER_READ OWNER_WRITE
+                     GROUP_READ
+                     WORLD_READ
+)
 install( DIRECTORY src// DESTINATION include
-         FILE_PERMISSIONS OWNER_READ OWNER_WRITE 
-                          GROUP_READ 
+         FILE_PERMISSIONS OWNER_READ OWNER_WRITE
+                          GROUP_READ
                           WORLD_READ
-         DIRECTORY_PERMISSIONS OWNER_READ OWNER_WRITE 
-                               GROUP_READ 
+         DIRECTORY_PERMISSIONS OWNER_READ OWNER_WRITE
+                               GROUP_READ
                                WORLD_READ
          FILES_MATCHING REGEX ".*\.h[+][+]$|.*\.hxx$|.*\.hpp$|.*\.hh$|.*\.h$"  )
 

@@ -4,14 +4,12 @@ using void_t = void;
 template< typename... Ls >
 class Node {
 public:
-  using leaf_type = std::experimental::variant< Ls... >;
+  using leaf_type = std::variant< Ls... >;
   using list_type = std::list< Node >;
   using list_iterator = typename list_type::iterator;
   using ptr_type = valuable::value_ptr< Node >;
   using map_type = std::map< std::string, ptr_type, std::less<> >;
-
-  using core_type =
-    std::experimental::variant< leaf_type, list_type, map_type >;
+  using core_type = std::variant< leaf_type, list_type, map_type >;
 
 protected:
   core_type core;
