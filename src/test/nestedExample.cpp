@@ -25,8 +25,8 @@ void nesting(){
 
   // This creates a child (sub) Node with an empty list
   mNode.put( "child", Node_t::makeList() );
-  
-  // This creates a child Node with a list that has been populated with the 
+
+  // This creates a child Node with a list that has been populated with the
   // values you provided in the constructor
   mNode.put( "child", Node_t{ 4, 5.5, "six" } );
 

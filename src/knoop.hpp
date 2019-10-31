@@ -3,10 +3,10 @@
 
 #include <map>
 #include <list>
+#include <variant>
 
 #include <range/v3/all.hpp>
 #include "value-ptr.hpp"
-#include <variant>
 
 namespace njoy {
 namespace knoop {

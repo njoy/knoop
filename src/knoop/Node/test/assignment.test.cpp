@@ -4,9 +4,8 @@
 using namespace njoy::knoop;
 using Node_t = Node<int, std::string>;
 
-// this functions are a workaround for isuues in the interaction between
-// C macros (like Catch's REQUIRE statement) and C++ template
-// instatiations;
+// These functions are a workaround for issues in the interaction between
+// C macros (like Catch's REQUIRE) and C++ template instantiations:
 
 int& getInt(Node_t& node);
 const int& getInt(const Node_t& node);

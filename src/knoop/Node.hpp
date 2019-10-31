@@ -1,10 +1,10 @@
 template< typename... Ts >
 using void_t = void;
 
-template< typename... Ls >
+template< typename L, typename... Ls >
 class Node {
 public:
-  using leaf_type = std::variant< Ls... >;
+  using leaf_type = std::variant< L, Ls... >;
   using list_type = std::list< Node >;
   using list_iterator = typename list_type::iterator;
   using ptr_type = valuable::value_ptr< Node >;

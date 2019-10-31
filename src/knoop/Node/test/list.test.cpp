@@ -4,9 +4,8 @@
 using namespace njoy::knoop;
 using Node_t = Node<int, std::string>;
 
-// this functions are a workaround for isuues in the interaction between
-// C macros (like Catch's REQUIRE statement) and C++ template
-// instatiations;
+// These functions are a workaround for issues in the interaction between
+// C macros (like Catch's REQUIRE) and C++ template instantiations:
 
 int& getInt(Node_t& node);
 const int& getInt(const Node_t& node);
@@ -14,6 +13,27 @@ std::string& getString(Node_t& node);
 const std::string& getString(const Node_t& node);
 
 SCENARIO( "list" ){
+  GIVEN( "a list Node" ){
+    WHEN( "the list Node is const" ){
+      // we'll set up a non-const node...
+      auto aNode = Node_t::makeList();
+      aNode.push_back(1).push_back("hello");
+      aNode.push_back("world", 2, 3);
+
+      // but we'll access it as const...
+      const auto& constNode = aNode;
+
+      THEN("list() can still be accessed"){
+        auto it = constNode.list().begin();
+        REQUIRE( getInt   (*it++) == 1 );
+        REQUIRE( getString(*it++) == "hello" );
+        REQUIRE( getString(*it++) == "world" );
+        REQUIRE( getInt   (*it++) == 2 );
+        REQUIRE( getInt   (*it++) == 3 );
+        REQUIRE( constNode.list().end() == it );
+      }
+    }
+  }
   GIVEN( "a list Node" ){
     WHEN( "values can be 'push_back'-ed" ){
       auto aNode = Node_t::makeList();
@@ -117,9 +137,13 @@ SCENARIO( "list" ){
   }
   GIVEN( "values to build a list Node" ){
     Node_t list{ 1, 2, "hello", 4, 5 };
+    const Node_t& constlist = list;
 
     REQUIRE( 1 == getInt( list.front() ) );
     REQUIRE( 5 == getInt( list.back() ) );
+
+    REQUIRE( 1 == getInt( constlist.front() ) );
+    REQUIRE( 5 == getInt( constlist.back() ) );
 
     auto it = list.list().begin();
     REQUIRE( 1 == getInt(*it) ); ++it;

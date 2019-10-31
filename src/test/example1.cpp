@@ -43,11 +43,11 @@ int main( ){
       std::vector< double >{1.0, 2.0, 3.0, 4.0} };
   auto& vec = vNode.get< std::vector< double > >();
   cout << endl;
-  cout << "vNode has values: " 
-       << vec[0] << ", " 
-       << vec[1] << ", " 
-       << vec[2] << ", " 
-       << vec[3] << ", " 
+  cout << "vNode has values: "
+       << vec[0] << ", "
+       << vec[1] << ", "
+       << vec[2] << ", "
+       << vec[3] << ", "
        << endl;
 
   // Example of how to create nested nodes

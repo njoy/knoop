@@ -9,14 +9,14 @@ Node& insert( Str&& str, T&& t ){
 }
 
 template< typename T >
-Node& insert( list_iterator it, T&& t ){
+Node& insert( const list_iterator it, T&& t ){
   auto& list = std::get< list_type >( core );
   list.insert(it, std::forward<T>(t) );
   return *this;
 }
 
 template< typename T, typename... Args >
-Node& insert( list_iterator it, T&& t, Args&&... args ){
+Node& insert( const list_iterator it, T&& t, Args&&... args ){
   auto& list = std::get< list_type >( core );
   list.insert(it, std::forward<T>(t) );
   return this->insert(it, std::forward<Args>(args)... );
