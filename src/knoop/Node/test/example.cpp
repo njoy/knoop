@@ -49,14 +49,14 @@ SCENARIO( "Simulating GNDS" ){
 
   GIVEN( "a node with some attributes and a 'child'" ){
 
-    auto gndsNode = 
+    auto gndsNode =
         GNDSNode( "person",
-          Attribute{ "name", "Anakin" }, 
+          Attribute{ "name", "Anakin" },
           Attribute{ "surname", "Skywalker"},
-          GNDSNode( "person", 
+          GNDSNode( "person",
                     Attribute{ "name", "Luke" },
                     Attribute{ "surname", "Skywalker" } ),
-          GNDSNode( "person", 
+          GNDSNode( "person",
                    Attribute{ "name", "Obi-Wan" },
                    Attribute{ "surname", "Kenobi" } ) );
 
@@ -71,7 +71,7 @@ SCENARIO( "Simulating GNDS" ){
       REQUIRE( 2 == gndsNode[ "children" ].list().size() );
     }
 
-    auto isSkywalker = []( const Node_t& node ){ 
+    auto isSkywalker = []( const Node_t& node ){
       auto surname = node[ "attributes" ][ "surname" ]. get< std::string>();
       return surname == "Skywalker";
     };
@@ -83,8 +83,8 @@ SCENARIO( "Simulating GNDS" ){
       REQUIRE( isSkywalker( children.front() ) );
 
       WHEN( "children are added" ){
-        gndsNode[ "children" ].push_back( 
-          GNDSNode( "person", 
+        gndsNode[ "children" ].push_back(
+          GNDSNode( "person",
                     Attribute{"name", "Leia" },
                     Attribute{ "surname", "Skywalker" } ) );
 
@@ -97,4 +97,3 @@ SCENARIO( "Simulating GNDS" ){
 
   }
 } // SCENARIO
-

@@ -1,10 +1,10 @@
-Node& erase( list_iterator it ){
+Node& erase( const list_iterator it ){
   auto& list = std::get< list_type >( core );
   list.erase( it );
   return *this;
 }
 
-Node& erase( list_iterator begin, list_iterator end ){
+Node& erase( const list_iterator begin, const list_iterator end ){
   auto& list = std::get< list_type >( core );
   list.erase( begin, end );
   return *this;

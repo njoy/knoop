@@ -17,5 +17,5 @@ $<$<BOOL:${link_time_optimization}>:${${PREFIX}_link_time_optimization_flags}>
 $<$<BOOL:${nonportable_optimization}>:${${PREFIX}_nonportable_optimization_flags}>>
 
 ${CXX_appended_flags} ${knoop_appended_flags} )
-target_link_libraries( knoop.Node.test PUBLIC knoop ) 
+target_link_libraries( knoop.Node.test PUBLIC knoop )
 add_test( NAME knoop.Node COMMAND knoop.Node.test )
