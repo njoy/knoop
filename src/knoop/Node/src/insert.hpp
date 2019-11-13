@@ -4,7 +4,9 @@ template< typename Str, typename T,
 Node& insert( Str&& str, T&& t ){
   auto& map = std::get< map_type >( core );
   const auto p = map.emplace( str, std::forward<T>(t) );
-  if ( not p.second ){ throw std::runtime_error("didn't work"); }
+  if ( not p.second ){ 
+    throw std::runtime_error( "Error when inserting node"); 
+  }
   return *this;
 }
 
